@@ -33,3 +33,10 @@ zip' (x:xs) (y:ys) = (x,y) : zip' xs ys
 
 elem' :: (Eq a) => a -> [a] -> Bool
 elem' x = foldr (\ y -> (||) (x == y)) False
+
+quicksort :: (Ord a) => [a] -> [a]
+quicksort [] = []
+quicksort (x:xs) = 
+    let smallersorted = quicksort [y | y <- xs, y <= x]
+        biggersorted  = quicksort [y | y <- xs, y >  x]
+    in smallersorted ++ [x] ++ biggersorted
